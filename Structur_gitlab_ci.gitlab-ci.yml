@@ -1,0 +1,33 @@
+
+stages:
+  - test
+  - build
+  - deploy
+
+run_tests:
+  stage: test
+  image: node:18-alpine
+  script:
+    - nmp ci
+    - nmp test
+
+build_app:
+  stage: build
+  script:
+    - nmp run build
+  artifacts:
+    paths:
+      -disk/
+    expire_in: 
+  only:
+    - main
+    
+
+deploy_staging:
+  stage: deploy
+  script:s
+    - echo "Deploying to staging..."
+  when: manual
+  only: 
+    - main
+    
